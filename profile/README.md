@@ -4,7 +4,7 @@
 -->
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/lingshu-ai-agent/lingshu/main/assets/lingshu_logo.svg" alt="LingShu" width="160"/>
+  <img src="https://raw.githubusercontent.com/lingshu-ai-agent/.github/main/assets/lingshu_logo.svg" alt="LingShu" width="160"/>
 
   <h1>LingShu · 灵枢</h1>
   <p><strong>The Pivot of Agent Orchestration</strong></p>
