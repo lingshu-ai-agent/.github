@@ -8,7 +8,7 @@
 
   <h1>LingShu · 灵枢</h1>
   <p><strong>The Pivot of Agent Orchestration</strong></p>
-  <p>Open-source Java Agent Engine for JDK 8+ — built on a ReAct Loop with 8 pluggable SPI slots.</p>
+  <p>Open-source Java Agent Engine — JDK 8 source syntax, JDK 17+ runtime. Built on a ReAct Loop with 9 pluggable SPI slots.</p>
 
   <p>
     <a href="https://github.com/lingshu-ai-agent/lingshu"><img src="https://img.shields.io/badge/engine-lingshu-0D9488?style=for-the-badge&logo=github" alt="engine"/></a>
@@ -30,9 +30,9 @@
 
 ## 🧭 What is LingShu
 
-**LingShu(灵枢)** is an open-source Java Agent Engine designed for **enterprise JDK 8+** stacks.
+**LingShu(灵枢)** is an open-source Java Agent Engine designed for **JDK 8 source syntax / JDK 17+ runtime** enterprise Spring Boot 3.x stacks.
 
-The core idea: every modern LLM Agent is a **ReAct Loop** — `Thought → Action → Observation`. LingShu makes this loop explicit, observable, and production-grade, then decomposes the agent into **8 pluggable SPI slots** so you can swap any piece without rewriting business code.
+The core idea: every modern LLM Agent is a **ReAct Loop** — `Thought → Action → Observation`. LingShu makes this loop explicit, observable, and production-grade, then decomposes the agent into **9 pluggable SPI slots** so you can swap any piece without rewriting business code.
 
 | ReAct phase | Implemented by |
 |---|---|
@@ -40,20 +40,20 @@ The core idea: every modern LLM Agent is a **ReAct Loop** — `Thought → Actio
 | **Action** | `ToolExecutor` + `PermissionPolicy` + `RuntimeSandbox` |
 | **Observation** | `SessionStore` + `Compactor` |
 
-The 8th slot — `FlowEngine` — is the orchestration layer itself. Swap `LinearTurnEngine` (default ReAct) for `GoogleAdkFlowEngine`, `AlibabaGraphFlowEngine`, or your own DAG without changing a line of business code.
+The **9 slots**: `LlmProvider` / `Tool` + `ToolExecutor` / `Sandbox` / `SkillSource` + `Skill` / `SessionStore` / `Compactor` / `PromptBuilder` / `FlowEngine` / `A2aTransport`. Slot #8 — `FlowEngine` — is the orchestration layer itself. Swap `LinearTurnEngine` (default ReAct) for `GoogleAdkFlowEngine`, `AlibabaGraphFlowEngine`, or your own DAG without changing a line of business code. Slot #9 — `A2aTransport` — handles cross-agent communication via the A2A v1.0+ protocol.
 
 ## 💡 Why
 
 | Problem in existing stacks | LingShu's answer |
 |---|---|
-| LangChain / LlamaIndex are Python-only | Pure Java 8+, fits Spring stacks |
+| LangChain / LlamaIndex are Python-only | Pure Java, fits Spring Boot 3.x stacks |
 | Spring AI is annotation-heavy, hard to swap | Every piece is an SPI, `META-INF/spring/...imports` one line |
 | Claude Code / Devin are closed source | 100% open-source, Apache 2.0 |
-| Most engines require JDK 17+ or even Java 21 (OryxOS) | **JDK 8 first-class** (sealed/records/`var`/`List.of` all avoided) |
+| Most engines require JDK 17+ or even Java 21 (OryxOS) | **JDK 8 source syntax / JDK 17+ runtime** — source code avoids `sealed`/`records`/`var`/`List.of`, runtime is JDK 17+ (Spring Boot 3.2.x + Spring AI 1.x minimum) |
 | Some stacks are "Agent OS" requiring a separate cluster (OryxOS) | **Engine, not OS** — embed in your existing Spring Boot, no new infra |
 | Tool/Skill/Sandbox are tangled | Two-layer isolation: `PermissionPolicy` (model layer) + `RuntimeSandbox` (system layer) |
 
-> 🟢 **LingShu's sharp niche**: *JDK 8 enterprise Spring stacks that can't (or won't) upgrade to Java 21 just to run an agent.* If that sentence doesn't describe you, that's OK — there are plenty of other engines for the Java 21 crowd.
+> 🟢 **LingShu's sharp niche**: *JDK 8 source syntax / JDK 17+ runtime Spring Boot 3.x stacks — no forced jump to Java 21, no parallel "agent cluster", just one JAR in your existing process.* If that sentence doesn't describe you, that's OK — there are plenty of other engines for the Java 21 crowd.
 
 ## ⚡ Quick Start
 
@@ -91,7 +91,7 @@ agent:
 
 | Repo | What |
 |---|---|
-| [**lingshu**](https://github.com/lingshu-ai-agent/lingshu) | Core engine: 8 SPI slots + LinearTurnEngine |
+| [**lingshu**](https://github.com/lingshu-ai-agent/lingshu) | Core engine: 9 SPI slots + LinearTurnEngine |
 | [**lingshu-cli**](https://github.com/lingshu-ai-agent/lingshu-cli) | `lingshu run "..."` — terminal-first agent runner |
 | [**lingshu-docs**](https://github.com/lingshu-ai-agent/lingshu-docs) | Docusaurus docs site |
 | [**lingshu-website**](https://github.com/lingshu-ai-agent/lingshu-website) | This org's website source |
